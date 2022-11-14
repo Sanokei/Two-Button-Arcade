@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpSpeed = 8.0f;
     [SerializeField] private float gravity = 20.0f;
     [SerializeField] private float lookSpeed = 2.0f;
-    [SerializeField] private float lookXLimit = 45.0f;
+    [SerializeField] private float lookXLimit = 65.0f;
     [SerializeField] private CharacterController characterController;
     public Camera playerCamera;
     

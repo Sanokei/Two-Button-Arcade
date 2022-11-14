@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComputerManager : MonoBehaviour//, IDottedCircle
+public class ComputerManager : MonoBehaviour
 {
     public delegate void DeactivateInputField();
     public static event DeactivateInputField DeactivateInputFieldEvent;
@@ -10,14 +10,8 @@ public class ComputerManager : MonoBehaviour//, IDottedCircle
     
     // FIXME: Flag variable. Bad practice.
     bool _computerMode = false;
-    [SerializeField] private GameObject _DottedCircle;
-    [SerializeField] private GameObject _Phone;
-    [SerializeField] private Rigidbody _rb;
     void Awake()
     {
-        gameObject.SetActive(false);
-        _DottedCircle.SetActive(false);
-        _Phone.SetActive(false);
         Eyes.OnRayCastHitEvent += OnComputerModeEvent;
     }
 
