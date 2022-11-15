@@ -25,9 +25,6 @@ public class FileManager : MonoBehaviour, IPointerClickHandler
             // Edit Physical Representation of Window
             window.CreateWindow(textIcon);
 
-            // Setting DragUI
-            window.setDragUI(window.dragUI._Camera, window.dragUI._Canvas, window.dragUI._CanvasRectTransform);
-            
             // Set the window's parent.
             window.transform.SetParent(transform.parent);
 

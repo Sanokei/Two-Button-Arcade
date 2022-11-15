@@ -17,7 +17,6 @@ public class WindowMaker : MonoBehaviour
     }
     public CodeEditor codeEditor;
     public TextMeshProUGUI text;
-    public DragUI dragUI;
     public TMP_InputField TMP_inputField;
     public void CreateWindow(TextIcon textIcon){
         codeEditor.Text = textIcon.FileData;
@@ -28,12 +27,5 @@ public class WindowMaker : MonoBehaviour
     void DeactivateInputField()
     { 
         TMP_inputField.DeactivateInputField();
-    }
-
-    public void setDragUI(Camera camera, Canvas canvas, RectTransform canvasRectTransform)
-    {
-        dragUI._Camera = camera;
-        dragUI._Canvas = canvas;
-        dragUI._CanvasRectTransform = canvasRectTransform;
     }
 }
