@@ -6,6 +6,7 @@ using System;
 using TMPro;
 
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
@@ -19,7 +20,8 @@ public class RightClickMenuManager : MonoBehaviour, IPointerClickHandler
     // Top two Combine + instantiated reference
     [HideInInspector] public InspectableDictionary<GameObject, Func<bool>> Instantiated_Buttons;
 
-    [SerializeField] List<RightClickOption> Buttons;
+    // This is only public becasue I dont have dependency injection
+    public InspectableDictionary<string, UnityEvent> Buttons;
 
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
@@ -27,7 +29,7 @@ public class RightClickMenuManager : MonoBehaviour, IPointerClickHandler
         if((int)eventData.button == 1)
         {
             // Creating the box that will have the buttons and get the option menu component
-            GameObject ircm = Instantiate(Resources.Load<GameObject>("Prefabs/RightClickMenu/RightClickMenu"), PlayerOptions.Instance.ScreenCanvas.transform);
+            GameObject ircm = Instantiate(Sanject.Instance.RightClickMenu, Sanject.Instance.ScreenCanvas.transform);
             if(ircm.TryGetComponent<RightClickOptionMenu>(out Instantiated_RightClickOptionMenu))
                 Debug.LogError("No RightClickOption Menu for coresponding GameObject");
 
@@ -37,10 +39,17 @@ public class RightClickMenuManager : MonoBehaviour, IPointerClickHandler
 
             // Gets every combine button and creates a list of instantiated and delegates 
             // I could have done the combining in any order
-            foreach(var button in Buttons)
+
+            foreach(var button in Buttons.Keys)
             {
-                GameObject option = Instantiate(Resources.Load<GameObject>("Prefabs/RightClickMenu/Option"), ircm.transform);
-                option.GetComponent<RightClickOptionMenu>().Create(button);
+                // FIXME: This is really gross code, mentally and physically
+                var b = new InspectableDictionary<string,UnityEvent>();
+                b.Add(button, Buttons[button]);
+                Sanject.Instance.CurrentOptionButton = b;
+
+                GameObject option = Instantiate(Sanject.Instance.Option, ircm.GetComponentInChildren<VerticalLayoutGroup>().transform);
+                // Added the stuff to OnEnable instead  
+                //    // option.GetComponent<RightClickOptionMenu>().Create(button);
                 // Instantiated_Buttons.Add(option, button.Delegate);
             }
         }

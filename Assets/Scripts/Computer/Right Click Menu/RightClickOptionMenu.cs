@@ -12,9 +12,10 @@ public class RightClickOptionMenu : MonoBehaviour
     [SerializeField] Button _button;
     [SerializeField] TextMeshProUGUI _text;
 
-    public void Create(RightClickOption option)
+    public void OnEnable()
     {
-        _text.text = option.name;
-        _button.onClick.AddListener(() => {option.Event?.Invoke(option);} );
+        var option = Sanject.Instance.CurrentOptionButton;
+        // _text.text = option;
+        // _button.onClick.AddListener(() => {option.Event?.Invoke(option);} );
     }
 }

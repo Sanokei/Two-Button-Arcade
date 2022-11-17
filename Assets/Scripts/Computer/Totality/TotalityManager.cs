@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using BuildingBlocks.DataTypes;
 
 [RequireComponent(typeof(RightClickMenuManager))]
 public abstract class TotalityManager : MonoBehaviour
 {
-    RightClickMenuManager RightClickMenuManager;
-
-    void Start()
+    public RightClickMenuManager RightClickMenuManager;
+    public abstract InspectableDictionary<string,UnityEvent> Buttons{get;set;}
+    void Awake()
     {
-        gameObject.GetComponent<RightClickMenuManager>();
+        RightClickMenuManager = gameObject.GetComponent<RightClickMenuManager>();
     }
 }

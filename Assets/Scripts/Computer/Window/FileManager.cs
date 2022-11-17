@@ -31,7 +31,7 @@ public class FileManager : MonoBehaviour, IPointerClickHandler
             // Change Code Editor
             foreach(editorThemeNames name in System.Enum.GetValues(typeof(editorThemeNames))) // TODO: This may become problematic later, if I allow users to create their own theme at runtime.
             {
-                if(name.ToString().ToLower() == PlayerOptions.Instance.defaultTheme.ToString().ToLower())
+                if(name.ToString().ToLower() == Sanject.Instance.defaultTheme.ToString().ToLower())
                 {
                     window.codeEditor.EditorTheme = (codeEditorTheme[(int)name]);
                     break;
