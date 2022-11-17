@@ -6,6 +6,7 @@ public class ComputerManager : MonoBehaviour
 {
     public delegate void DeactivateInputField();
     public static event DeactivateInputField DeactivateInputFieldEvent;
+    
     public PlayerMovement playerMovement;
     
     // FIXME: Flag variable. Bad practice.

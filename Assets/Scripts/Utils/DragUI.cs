@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 // why isnt this a IDraggable interface? idk either...
-public class DragUI : MonoBehaviour, IDragHandler
+public class DragUI : IDragHandler
 {
     // public void OnDrop(PointerEventData data)
     // {
@@ -18,23 +19,28 @@ public class DragUI : MonoBehaviour, IDragHandler
     //     OnDropEvent(gameObject);
     // }
     
+    [Inject (Id = "DragUI_GameObjectRectTransform")] readonly RectTransform _GameObjectRectTransform;
+    [Inject (Id = "DragUI_Transform")] readonly Transform _Transform;
+    [Inject (Id = "DragUI_ScreenCanvas")] readonly Canvas _ScreenCanvas;
+    [Inject (Id = "DragUI_ScreenCanvasRectTransform")] readonly RectTransform _ScreenCanvasRectTransform;
+    [Inject (Id = "MainCamera")] readonly Camera _Camera;
+
     /// <summary>
     /// Makes the icon draggable.
     /// </summary>
     public void OnDrag(PointerEventData eventdata)
     {
         Vector2 pos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(Sanject.Instance.ScreenCanvas.transform as RectTransform, eventdata.position, Sanject.Instance.Camera, out pos);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(_ScreenCanvas.transform as RectTransform, eventdata.position, _Camera, out pos);
 
         Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        var _GameObjectRectTransform = gameObject.GetComponent<RectTransform>();
         float width = _GameObjectRectTransform.rect.width * _GameObjectRectTransform.localScale.x;
         float height = _GameObjectRectTransform.rect.height * _GameObjectRectTransform.localScale.y;
         // Clamps the position of the dragged object to stay on the screen
         Vector2 newPos = new Vector2(
-            Mathf.Clamp(pos.x, -((Sanject.Instance.ScreenCanvasRectTransform.rect.width) / 2) + (width / 2), (Sanject.Instance.ScreenCanvasRectTransform.rect.width / 2) - (width / 2)), 
-            Mathf.Clamp(pos.y, -(Sanject.Instance.ScreenCanvasRectTransform.rect.height / 2) + (height / 2),  Sanject.Instance.ScreenCanvasRectTransform.rect.height / 2 - (height / 2))
+            Mathf.Clamp(pos.x, -((_ScreenCanvasRectTransform.rect.width) / 2) + (width / 2), (_ScreenCanvasRectTransform.rect.width / 2) - (width / 2)), 
+            Mathf.Clamp(pos.y, -(_ScreenCanvasRectTransform.rect.height / 2) + (height / 2),  _ScreenCanvasRectTransform.rect.height / 2 - (height / 2))
         );
-        gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, Sanject.Instance.ScreenCanvas.transform.TransformPoint(newPos), Time.deltaTime * 60f);
+        _Transform.position = Vector3.Lerp(_Transform.position,_ScreenCanvas.transform.TransformPoint(newPos), Time.deltaTime * 60f);
     }
 }

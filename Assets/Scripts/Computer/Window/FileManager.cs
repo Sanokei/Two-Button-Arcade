@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using InGameCodeEditor;
+using Zenject;
 
 public class FileManager : MonoBehaviour, IPointerClickHandler
 {
@@ -12,6 +13,10 @@ public class FileManager : MonoBehaviour, IPointerClickHandler
     public CodeLanguageTheme[] codeLanguageTheme;
     public enum languageThemeNames{json, lua, txt, cs, ms}; // Csharp and Miniscript is just for future proofing. Not actually used meaningfully.
     public string file_path;
+    
+    [Inject]
+    readonly editorThemeNames _defaultTheme;
+
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {
         if (eventData.clickCount == 2)
@@ -31,7 +36,7 @@ public class FileManager : MonoBehaviour, IPointerClickHandler
             // Change Code Editor
             foreach(editorThemeNames name in System.Enum.GetValues(typeof(editorThemeNames))) // TODO: This may become problematic later, if I allow users to create their own theme at runtime.
             {
-                if(name.ToString().ToLower() == Sanject.Instance.defaultTheme.ToString().ToLower())
+                if(name.ToString().ToLower() == _defaultTheme.ToString().ToLower())
                 {
                     window.codeEditor.EditorTheme = (codeEditorTheme[(int)name]);
                     break;

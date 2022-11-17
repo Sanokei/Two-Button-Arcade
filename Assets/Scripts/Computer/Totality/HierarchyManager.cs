@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using BuildingBlocks.DataTypes;
+using Zenject;
 
 public class HierarchyManager : TotalityManager
 {
@@ -17,13 +18,15 @@ public class HierarchyManager : TotalityManager
     //     // cuz then i could Instantiate needed RightClickOption as Scriptable Objects
 
     // }
+
+
     void Start()
     {
         RightClickMenuManager.Buttons = this.Buttons;
     }
 
-    public void CreateHierarchyElement()
-    {
-        Instantiate(Sanject.Instance.HierarchyElement, Sanject.Instance.HierarchyTransform);
-    }
+    // public void CreateHierarchyElement()
+    // {
+    //     Instantiate(Sanject.Instance.HierarchyElement, Sanject.Instance.HierarchyTransform);
+    // }
 }

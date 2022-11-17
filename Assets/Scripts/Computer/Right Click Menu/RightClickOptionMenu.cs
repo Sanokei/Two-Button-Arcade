@@ -14,7 +14,7 @@ public class RightClickOptionMenu : MonoBehaviour
 
     public void OnEnable()
     {
-        var option = Sanject.Instance.CurrentOptionButton;
+        // var option = Sanject.Instance.CurrentOptionButton;
         // _text.text = option;
         // _button.onClick.AddListener(() => {option.Event?.Invoke(option);} );
     }

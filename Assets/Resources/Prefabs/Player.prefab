@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 7907856868349875687}
   - component: {fileID: 7907856868349875686}
   - component: {fileID: 7907856868349875705}
-  - component: {fileID: 7229613531116497171}
-  - component: {fileID: 3217468708455645636}
   - component: {fileID: 7680062622701110784}
   m_Layer: 0
   m_Name: Player
@@ -76,36 +74,6 @@ MonoBehaviour:
   characterController: {fileID: 7907856868349875686}
   playerCamera: {fileID: 7907856870137713221}
   canMove: 1
---- !u!114 &7229613531116497171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7907856868349875704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 3217468708455645636}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
---- !u!114 &3217468708455645636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7907856868349875704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38d1d051398209144b9699f494f96ba3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7680062622701110784
 MonoBehaviour:
   m_ObjectHideFlags: 0
