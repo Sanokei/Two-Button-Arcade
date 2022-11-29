@@ -7,4 +7,31 @@ using BuildingBlocks.DataTypes;
 public class Inventory : ScriptableObject
 {
     [SerializeField] private InspectableDictionary<string,TextIcon> inventory = new InspectableDictionary<string,TextIcon>();
+    public TextIcon this[string key] {
+        get 
+        {
+            return inventory[key];
+        }
+        set
+        {
+            inventory[key] = value;
+        }
+    }
+
+    public TextIcon this[int key] {
+        get 
+        {
+            return inventory[key];
+        }
+        set
+        {
+            inventory[key] = value;
+        }
+    }
+    
+
+    public int GetLength()
+    {
+        return inventory.Count;
+    }
 }
