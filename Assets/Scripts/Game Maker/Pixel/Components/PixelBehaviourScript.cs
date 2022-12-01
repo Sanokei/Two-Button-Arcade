@@ -6,6 +6,7 @@ using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
 
 using Lancet;
+using System;
 
 namespace PixelGame
 {
@@ -13,15 +14,7 @@ namespace PixelGame
     {
         ScriptFunctionDelegate onOneButtonPress, onTwoButtonPress;
         ScriptFunctionDelegate onUpdate, onStart;
-        void Awake()
-        {
-            Game.buttonOnePressEvent += ButtonOnePress;
-            Game.buttonTwoPressEvent += ButtonTwoPress;
-        }
-        void Update()
-        {
-            onUpdate?.Invoke();
-        }
+
         string FileData;
         Script script = new Script();
         public PixelBehaviourScript(string FileData)
@@ -30,6 +23,10 @@ namespace PixelGame
         }
         public override void Create(Transform parent)
         {
+            Game.buttonOnePressEvent += ButtonOnePress;
+            Game.buttonTwoPressEvent += ButtonTwoPress;
+            Game.onUpdateEvent += OnUpdateEventHandler;
+
             script.Options.DebugPrint = (x) => {Debug.Log(x);};
             ((ScriptLoaderBase)script.Options.ScriptLoader).IgnoreLuaPathGlobal = true;
             ((ScriptLoaderBase)script.Options.ScriptLoader).ModulePaths = ScriptLoaderBase.UnpackStringPaths(System.IO.Path.Combine(Application.persistentDataPath,"?") + ".lua");
@@ -41,7 +38,6 @@ namespace PixelGame
             try
             {
                 onStart = script.Globals.Get("Start").Function.GetDelegate();
-                onUpdate = script.Globals.Get("Update").Function.GetDelegate();
                 onOneButtonPress = script.Globals.Get("ButtonOnePress").Function.GetDelegate();
                 onTwoButtonPress = script.Globals.Get("ButtonTwoPress").Function.GetDelegate();
             }
@@ -49,17 +45,35 @@ namespace PixelGame
             {
 
             }
+            
+            // 
+            // onAwake
             onStart?.Invoke();
+
+            try
+            {
+                onUpdate = script.Globals.Get("Update").Function.GetDelegate();
+            }
+            catch
+            {
+
+            }
             
         }
-            public void ButtonOnePress()
-            {
-                onOneButtonPress?.Invoke();
-            }
 
-            public void ButtonTwoPress()
-            {
-                onTwoButtonPress?.Invoke();
-            }
+        private void OnUpdateEventHandler()
+        {
+            onUpdate?.Invoke();
+        }
+
+        public void ButtonOnePress()
+        {
+            onOneButtonPress?.Invoke();
+        }
+
+        public void ButtonTwoPress()
+        {
+            onTwoButtonPress?.Invoke();
+        }
     }
 }

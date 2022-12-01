@@ -6,15 +6,8 @@ using BuildingBlocks.DataTypes;
 using MoonSharp.Interpreter;
 public class JumpGame : Game
 {
-    void Awake()
+    void OnEnable()
     {
-        Eyes.OnRayCastHitEvent += LookingAtMachine;
-    }
-    
-    void LookingAtMachine(RaycastHit hit)
-    {
-        if(!Input.GetMouseButtonDown(0) || !hit.collider.Equals(game.ArcadeCollider))
-            return;
         // Pixel Game Object is like a scriptable object
         /*
             PixelTransform
@@ -49,7 +42,15 @@ public class JumpGame : Game
                 function Start()
                     print('test')
                 end
-
+                function Update()
+                    print('crash test')
+                end
+                function ButtonOnePress()
+                    print('one')
+                end
+                function ButtonTwoPress()
+                    print('two')
+                end
             ";
 
         Player.PixelComponents.Add(new PixelBehaviourScript(PlayerMovementScript));

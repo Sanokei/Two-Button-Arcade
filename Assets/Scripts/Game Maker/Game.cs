@@ -10,10 +10,10 @@ using PixelGame;
 
 public class Game : MonoBehaviour
 {
-    public Collider ArcadeCollider;
     public delegate void OnButtonClickDelegate();
-    public static OnButtonClickDelegate buttonOnePressEvent;
-    public static OnButtonClickDelegate buttonTwoPressEvent;
+    public static OnButtonClickDelegate buttonOnePressEvent,buttonTwoPressEvent;
+    public delegate void OnUpdateDelegate();
+    public static OnUpdateDelegate onUpdateEvent;
     
     void Update()
     {
@@ -25,8 +25,10 @@ public class Game : MonoBehaviour
         {
             buttonTwoPressEvent?.Invoke();
         }
+        onUpdateEvent?.Invoke();
     }
 
+    
     public Game game
     {
         get
