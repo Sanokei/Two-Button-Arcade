@@ -19,6 +19,6 @@ namespace PixelGame
         {
             PixelComponents.Add(pixelComponent);
         }
-        public List<PixelComponent> PixelComponents;
+        public List<PixelComponent> PixelComponents{get;}
     }
 }

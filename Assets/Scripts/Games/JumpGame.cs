@@ -34,7 +34,7 @@ public class JumpGame : Game
         // Create player gameobject
         PixelGameObject Player = gameObject.AddComponent<PixelGameObject>();
         // add pixel sprite component with player string
-        Player.PixelComponents.Add(new PixelSprite(player));
+        Player.add(new PixelSprite(player));
         // add scripts
         string PlayerMovementScript = 
             @"
@@ -53,12 +53,12 @@ public class JumpGame : Game
                 end
             ";
 
-        Player.PixelComponents.Add(new PixelBehaviourScript(PlayerMovementScript));
+        Player.add(new PixelBehaviourScript(PlayerMovementScript));
         
         // Create canvas gameobject
         PixelGameObject MainCanvas = gameObject.AddComponent<PixelGameObject>();
         // add pixel canvas
-        MainCanvas.PixelComponents.Add(new PixelCanvas());
+        MainCanvas.add(new PixelCanvas());
 
         // Game
         game.add("Main Canvas", MainCanvas);
