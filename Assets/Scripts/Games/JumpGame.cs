@@ -26,7 +26,7 @@ public class JumpGame : Game
         InspectableDictionary<PixelPosition,char> PlayerSpriteString = new InspectableDictionary<PixelPosition, char>()
         {
             {new PixelPosition(0,0), 'c'},
-            {new PixelPosition(1,0), 'r'}
+            {new PixelPosition(0,1), 'r'}
         };
 
         // Create a sprite String for the player

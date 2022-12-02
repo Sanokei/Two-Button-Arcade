@@ -16,7 +16,7 @@ namespace PixelGame
         }
         public PixelSprite()
         {
-
+            
         }
 
         public PixelSprite(string SpriteString)
