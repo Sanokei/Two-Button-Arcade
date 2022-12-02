@@ -31,34 +31,39 @@ public class JumpGame : Game
 
         // Create a sprite String for the player
         string player = game.SpriteStringMaker(PlayerSpriteString);
+        
         // Create player gameobject
         PixelGameObject Player = gameObject.AddComponent<PixelGameObject>();
-        // add pixel sprite component with player string
-        Player.add(new PixelSprite(player));
-        // add scripts
-        string PlayerMovementScript = 
-            @"
-                -- player movement
-                function Start()
-                    print('test')
-                end
-                function Update()
-                    print('crash test')
-                end
-                function ButtonOnePress()
-                    print('one')
-                end
-                function ButtonTwoPress()
-                    print('two')
-                end
-            ";
-
-        Player.add(new PixelBehaviourScript(PlayerMovementScript));
+            // add pixel sprite component with player string
+            PixelSprite sprite = gameObject.AddComponent<PixelSprite>();
+            sprite.add(player);
+            Player.add("Player_Still", sprite);
+            // add scripts
+            string PlayerMovementScript = 
+                @"
+                    -- player movement
+                    function Start()
+                        print('test')
+                    end
+                    function Update()
+                        print('crash test')
+                    end
+                    function ButtonOnePress()
+                        print('one')
+                    end
+                    function ButtonTwoPress()
+                        print('two')
+                    end
+                ";
+            PixelBehaviourScript script = gameObject.AddComponent<PixelBehaviourScript>();
+            Player.add("PlayerMovement", script);
+            ((PixelBehaviourScript) Player.PixelComponents["PlayerMovement"]).add(PlayerMovementScript);
         
         // Create canvas gameobject
         PixelGameObject MainCanvas = gameObject.AddComponent<PixelGameObject>();
-        // add pixel canvas
-        MainCanvas.add(new PixelCanvas());
+            // add pixel canvas
+            PixelCanvas canvas = gameObject.AddComponent<PixelCanvas>();
+            MainCanvas.add("Main Canvas", canvas);
 
         // Game
         game.add("Main Canvas", MainCanvas);

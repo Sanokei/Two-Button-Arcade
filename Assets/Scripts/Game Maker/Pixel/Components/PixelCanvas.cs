@@ -6,10 +6,13 @@ namespace PixelGame
 {
     public class PixelCanvas : PixelComponent
     {
-        PixelSprite canvas = new PixelSprite("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+        PixelSprite canvas;
+
         public override void Create(Transform parent)
         {
-            canvas.Create(parent);
+            canvas = gameObject.AddComponent<PixelSprite>();
+            canvas.add("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+            canvas.Create(gameObject.transform);
         }
     }
 }

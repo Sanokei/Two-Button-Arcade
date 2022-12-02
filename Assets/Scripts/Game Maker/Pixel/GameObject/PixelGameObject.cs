@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BuildingBlocks.DataTypes;
 
 namespace PixelGame
 {
@@ -8,17 +9,12 @@ namespace PixelGame
     {
         public PixelGameObject()
         {
-            PixelComponents = new List<PixelComponent>();
+            PixelComponents = new InspectableDictionary<string,PixelComponent>();
         }
-        public PixelGameObject(PixelComponent pixelComponent)
+        public void add(string key, PixelComponent pixelComponent)
         {
-            PixelComponents = new List<PixelComponent>();
-            PixelComponents.Add(pixelComponent);
+            PixelComponents.Add(key, pixelComponent);
         }
-        public void add(PixelComponent pixelComponent)
-        {
-            PixelComponents.Add(pixelComponent);
-        }
-        public List<PixelComponent> PixelComponents{get;}
+        public InspectableDictionary<string,PixelComponent> PixelComponents{get;}
     }
 }

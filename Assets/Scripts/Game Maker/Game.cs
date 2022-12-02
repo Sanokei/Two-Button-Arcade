@@ -63,7 +63,7 @@ public class Game : MonoBehaviour
         foreach(string key in PixelGameObjects.Keys)
         {
             // spawn the components
-            foreach(PixelComponent pixelComponent in PixelGameObjects[key].PixelComponents)
+            foreach(PixelComponent pixelComponent in PixelGameObjects[key].PixelComponents.Values)
             {
                 pixelComponent.Create(ScreenParent);
             }

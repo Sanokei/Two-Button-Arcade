@@ -16,20 +16,20 @@ namespace PixelGame
         string FileData;
         Script script = new Script();
         PixelScript pixelScript;
-        public PixelBehaviourScript(string FileData)
+        public void add(string FileData)
         {
             this.FileData = FileData;
         }
         public override void Create(Transform parent)
         {
-            pixelScript = Instantiate<PixelScript>(Resources.Load<PixelScript>("Prefabs/Game/PixelScript"), parent);
+            StartCoroutine(InstantiatePixelScript(parent));
             pixelScript.RunScript(FileData,script);
         }
 
         IEnumerator InstantiatePixelScript(Transform parent)
         {
-            pixelScript = Instantiate<PixelScript>(Resources.Load<PixelScript>("Prefabs/Game/PixelScript"), parent);
-            yield return new WaitForEndOfFrame();
+            pixelScript = Instantiate<PixelScript>(Resources.Load<PixelScript>("Prefabs/Game/PixelScript"),parent);
+            yield return null;
         }
     }
 }
