@@ -8,13 +8,15 @@ using System.Text;
 
 using PixelGame;
 
-public class Game : MonoBehaviour
+public abstract class Game : MonoBehaviour
 {
     public delegate void OnButtonClickDelegate();
     public static OnButtonClickDelegate buttonOnePressEvent,buttonTwoPressEvent;
     public delegate void OnUpdateDelegate();
     public static OnUpdateDelegate onUpdateEvent;
-    
+    public abstract void StartGame();
+    public ArcadeManager Cabinet;
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Q))
@@ -28,6 +30,10 @@ public class Game : MonoBehaviour
         onUpdateEvent?.Invoke();
     }
 
+    public void setCabinet(ArcadeManager cabinet)
+    {
+        this.Cabinet = cabinet;
+    }
     
     public Game game
     {
@@ -65,7 +71,10 @@ public class Game : MonoBehaviour
             // spawn the components
             foreach(PixelComponent pixelComponent in PixelGameObjects[key].PixelComponents.Values)
             {
-                pixelComponent.Create(ScreenParent);
+                if(pixelComponent is PixelBehaviourScript)
+                    pixelComponent.Create(Cabinet.Computer.transform);
+                else
+                    pixelComponent.Create(ScreenParent);
             }
         }
     }

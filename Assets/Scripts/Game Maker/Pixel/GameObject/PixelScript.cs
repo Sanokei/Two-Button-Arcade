@@ -5,6 +5,9 @@ using UnityEngine;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
 
+using TMPro;
+using InGameCodeEditor;
+
 using Lancet;
 using System;
 
@@ -15,13 +18,18 @@ namespace PixelGame
         ScriptFunctionDelegate onOneButtonPress, onTwoButtonPress;
         ScriptFunctionDelegate onUpdate, onStart;
 
+        public TextMeshProUGUI filename;
+
         void OnEnable()
         {
             Game.buttonOnePressEvent += ButtonOnePress;
             Game.buttonTwoPressEvent += ButtonTwoPress;
             Game.onUpdateEvent += OnUpdateEventHandler;
         }
-
+        public void RunScript(TextIcon FileData, Script script)
+        {
+            RunScript(FileData.FileData, script);
+        }
         public void RunScript(string FileData, Script script)
         {
             script.Options.DebugPrint = (x) => {Debug.Log(x);};
@@ -43,7 +51,7 @@ namespace PixelGame
 
             }
             
-            // 
+            
             // onAwake
             onStart?.Invoke();
 

@@ -6,6 +6,7 @@ public class ArcadeManager : MonoBehaviour
 {
     [SerializeField] Game game; // Game child classes
     [SerializeField] Collider ArcadeCollider;
+    public GameObject Computer;
 
     Game Instance;
 
@@ -21,5 +22,7 @@ public class ArcadeManager : MonoBehaviour
         if(Instance != null)
             Destroy(Instance.gameObject);
         Instance = Instantiate(game,gameObject.transform);
+        Instance.setCabinet(this);
+        Instance.StartGame();
     }
 }

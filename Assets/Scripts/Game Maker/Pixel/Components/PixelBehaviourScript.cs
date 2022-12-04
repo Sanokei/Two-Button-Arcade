@@ -12,17 +12,19 @@ namespace PixelGame
 {
     public class PixelBehaviourScript : PixelComponent
     {
-        
+        string FileName;
         string FileData;
         Script script = new Script();
         PixelScript pixelScript;
-        public void add(string FileData)
+        public void add(string FileName, string FileData)
         {
+            this.FileName = FileName;
             this.FileData = FileData;
         }
         public override void Create(Transform parent)
         {
             StartCoroutine(InstantiatePixelScript(parent));
+            // add all the gameobjects to global variables for lua
             pixelScript.RunScript(FileData,script);
         }
 

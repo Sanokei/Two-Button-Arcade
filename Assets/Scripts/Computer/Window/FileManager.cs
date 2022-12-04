@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using InGameCodeEditor;
+using PixelGame;
 
 public class FileManager : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] TextIcon textIcon;
+    public TextIcon textIcon;
     public CodeEditorTheme[] codeEditorTheme;
     public enum editorThemeNames{light, dark, terminal}; // Dark is the default. 
     public CodeLanguageTheme[] codeLanguageTheme;
@@ -16,36 +17,29 @@ public class FileManager : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.clickCount == 2)
         {
-            // Create Physical Representation of Window
-            WindowMaker window = Instantiate(Resources.Load($"Computer/Window/CodeEditor") as WindowMaker, transform.parent);
+            // // Create Physical Representation of Window
+            // PixelScript window = Instantiate(Resources.Load($"Prefabs/Game/PixelScript") as PixelScript, transform.parent);
             
-            // Set the window's title.
-            window.text.text = $"{textIcon.name}.{textIcon.textType.ToString()}";
+            // window.LoadScript($"{textIcon.name}.{textIcon.textType.ToString()}", textIcon);
 
-            // Edit Physical Representation of Window
-            window.CreateWindow(textIcon);
+            // // Change Code Editor
+            // foreach(editorThemeNames name in System.Enum.GetValues(typeof(editorThemeNames))) // TODO: This may become problematic later, if I allow users to create their own theme at runtime.
+            // {
+            //     if(name.ToString().ToLower() == PlayerOptions.Instance.defaultTheme.ToString().ToLower())
+            //     {
+            //         window.codeEditor.EditorTheme = (codeEditorTheme[(int)name]);
+            //         break;
+            //     }
+            // }
 
-            // Set the window's parent.
-            window.transform.SetParent(transform.parent);
-
-            // Change Code Editor
-            foreach(editorThemeNames name in System.Enum.GetValues(typeof(editorThemeNames))) // TODO: This may become problematic later, if I allow users to create their own theme at runtime.
-            {
-                if(name.ToString().ToLower() == PlayerOptions.Instance.defaultTheme.ToString().ToLower())
-                {
-                    window.codeEditor.EditorTheme = (codeEditorTheme[(int)name]);
-                    break;
-                }
-            }
-
-            foreach(languageThemeNames name in System.Enum.GetValues(typeof(languageThemeNames)))
-            {
-                if(name.ToString().ToLower() == textIcon.textType.ToString().ToLower())
-                {
-                    window.codeEditor.LanguageTheme = (codeLanguageTheme[(int)name]);
-                    break;
-                }
-            }
+            // foreach(languageThemeNames name in System.Enum.GetValues(typeof(languageThemeNames)))
+            // {
+            //     if(name.ToString().ToLower() == textIcon.textType.ToString().ToLower())
+            //     {
+            //         window.codeEditor.LanguageTheme = (codeLanguageTheme[(int)name]);
+            //         break;
+            //     }
+            // }
         }
     }
 }
