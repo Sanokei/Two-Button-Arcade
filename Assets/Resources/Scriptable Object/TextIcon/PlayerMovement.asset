@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18762b0efd028694f8d2e98e8e509850, type: 3}
   m_Name: PlayerMovement
   m_EditorClassIdentifier: 
-  textType: 0
-  FileData: 
+  textType: 1
+  FileData: -- player movement function Start()     print('test') end function Update()    
+    print('crash test') end function ButtonOnePress()     print('one') end function
+    ButtonTwoPress()     print('two') end
   image: {fileID: 0}

@@ -1,29 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using PixelGame;
-using BuildingBlocks.DataTypes;
-using MoonSharp.Interpreter;
 public class JumpGame : Game
 {
     public override void StartGame()
     {
-        // Pixel Game Object is like a scriptable object
-        /*
-            PixelTransform
-                PixelPosition
-                AnchorPixel
-            
-            PixelCollider
-                -isTrigger
-                AnchorPixel
-            
-            PixelSprite
-                (prefab) PixelScreen
-        */
 
-        // different letters correspond to different colors
-        InspectableDictionary<PixelPosition,char> PlayerSpriteString = new InspectableDictionary<PixelPosition, char>()
+
+        // Create player gameobject
+        PixelGameObject Player = game.add("Player");
+        // Create canvas gameobject
+        PixelGameObject MainCanvas = game.add("Main Canvas");
+
+        // Different letters correspond to different colors
+        Dictionary<PixelPosition,char> PlayerSpriteString = new Dictionary<PixelPosition, char>()
         {
             {new PixelPosition(0,0), 'c'},
             {new PixelPosition(0,1), 'r'}
@@ -32,49 +21,41 @@ public class JumpGame : Game
         // Create a sprite String for the player
         string player = game.SpriteStringMaker(PlayerSpriteString);
         
-        // Create player gameobject
-        PixelGameObject Player = gameObject.AddComponent<PixelGameObject>();
-            // add pixel sprite component with player string
-            PixelSprite sprite = gameObject.AddComponent<PixelSprite>();
+        // add pixel sprite component with player string
+        PixelSprite sprite = Player.gameObject.AddComponent<PixelSprite>();
             sprite.add(player);
             Player.add("Player_Still", sprite);
-            // add scripts
-            string PlayerMovementScript =
-                @"-- player movement
-                function Start()
-                    print('test')
-                end
-                function Update()
-                    print('crash test')
-                end
-                function ButtonOnePress()
-                    print('one')
-                end
-                function ButtonTwoPress()
-                    print('two')
-                end
-                ";
-            PixelBehaviourScript script = gameObject.AddComponent<PixelBehaviourScript>();
+        // add scripts
+        string PlayerMovementScript =
+            @"-- player movement
+            function Start()
+                print('test')
+            end
+            function Update()
+                print('crash test')
+            end
+            function ButtonOnePress()
+                print('one')
+            end
+            function ButtonTwoPress()
+                print('two')
+            end
+            ";
+        PixelBehaviourScript script = Player.gameObject.AddComponent<PixelBehaviourScript>();
             string PlayerMovementScriptName = "PlayerMovement";
+            script.add(PlayerMovementScriptName, PlayerMovementScript);
             Player.add(PlayerMovementScriptName, script);
-            ((PixelBehaviourScript) Player.PixelComponents[PlayerMovementScriptName]).add(PlayerMovementScriptName, PlayerMovementScript);
-                // TextIcon PlayerMovementScriptIcon = (TextIcon) ScriptableObject.CreateInstance("TextIcon");
-                //     PlayerMovementScriptIcon.name = PlayerMovementScriptName;
-                //     PlayerMovementScriptIcon.FileData = PlayerMovementScript;
-                //     ((PixelBehaviourScript) Player.PixelComponents[PlayerMovementScriptName]).add(PlayerMovementScriptName, PlayerMovementScriptIcon);
         
-        // Create canvas gameobject
-        PixelGameObject MainCanvas = gameObject.AddComponent<PixelGameObject>();
             // add pixel canvas
-            PixelCanvas canvas = gameObject.AddComponent<PixelCanvas>();
+            PixelCanvas canvas = MainCanvas.gameObject.AddComponent<PixelCanvas>();
             MainCanvas.add("Main Canvas", canvas);
 
-        // Game
-        game.add("Main Canvas", MainCanvas);
-        game.add("Player", Player);
-
         // compile the code and then run it
-        game.CompileAndRun(gameObject.transform);
-
+        game.CompileAndRun();
     }
 }
+
+// TextIcon PlayerMovementScriptIcon = (TextIcon) ScriptableObject.CreateInstance("TextIcon");
+//     PlayerMovementScriptIcon.name = PlayerMovementScriptName;
+//     PlayerMovementScriptIcon.FileData = PlayerMovementScript;
+//     ((PixelBehaviourScript) Player.PixelComponents[PlayerMovementScriptName]).add(PlayerMovementScriptName, PlayerMovementScriptIcon);

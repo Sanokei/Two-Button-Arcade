@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using BuildingBlocks.DataTypes;
@@ -17,7 +15,12 @@ public abstract class Game : MonoBehaviour
     public abstract void StartGame();
     public ArcadeManager Cabinet;
 
-    void Update()
+    void Awake()
+    {
+        Eyes.OnRayCastHitEvent += ButtonPress;
+    }
+
+    void ButtonPress(RaycastHit hit)
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
@@ -27,6 +30,9 @@ public abstract class Game : MonoBehaviour
         {
             buttonTwoPressEvent?.Invoke();
         }
+    }
+    void Update()
+    {
         onUpdateEvent?.Invoke();
     }
 
@@ -58,28 +64,27 @@ public abstract class Game : MonoBehaviour
     }
 
     // add components to gameobjects
-    public void add(string key, PixelGameObject value)
-    {
-        PixelGameObjects.Add(key,value);
+    public PixelGameObject add(string key)
+    {           
+        PixelGameObject value = Instantiate<PixelGameObject>(Resources.Load<PixelGameObject>("Prefabs/Game/PixelGameObject"), gameObject.transform);
+        PixelGameObjects.Add(key, value);
+        return value;
     }
 
-    public void CompileAndRun(Transform ScreenParent)
+    public void CompileAndRun()
     {
         // <string,Layer>
-        foreach(string key in PixelGameObjects.Keys)
+        foreach(PixelGameObject key in PixelGameObjects.Values)
         {
             // spawn the components
-            foreach(PixelComponent pixelComponent in PixelGameObjects[key].PixelComponents.Values)
+            foreach(PixelComponent pixelComponent in key.PixelComponents.Values)
             {
-                if(pixelComponent is PixelBehaviourScript)
-                    pixelComponent.Create(Cabinet.Computer.transform);
-                else
-                    pixelComponent.Create(ScreenParent);
+                pixelComponent.Create(key.gameObject.transform);
             }
         }
     }
 
-    public string SpriteStringMaker(InspectableDictionary<PixelPosition,char> SpriteString)
+    public string SpriteStringMaker(Dictionary<PixelPosition,char> SpriteString)
         {
             StringBuilder Default = new StringBuilder("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
             foreach(PixelPosition key in SpriteString.Keys)
