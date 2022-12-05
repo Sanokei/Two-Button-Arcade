@@ -15,9 +15,14 @@ public abstract class Game : MonoBehaviour
     public abstract void StartGame();
     public ArcadeManager Cabinet;
 
-    void Awake()
+    void OnEnable()
     {
         Eyes.OnRayCastHitEvent += ButtonPress;
+    }
+
+    void OnDisable()
+    {
+        Eyes.OnRayCastHitEvent -= ButtonPress;
     }
 
     void ButtonPress(RaycastHit hit)
@@ -48,8 +53,8 @@ public abstract class Game : MonoBehaviour
             return this;
         }
     }
+    /*****************************************************/
     public Image Skybox;
-
     public InspectableDictionary<string,PixelGameObject> PixelGameObjects;
 
     public PixelGameObject this[string key] {
@@ -67,6 +72,7 @@ public abstract class Game : MonoBehaviour
     public PixelGameObject add(string key)
     {           
         PixelGameObject value = Instantiate<PixelGameObject>(Resources.Load<PixelGameObject>("Prefabs/Game/PixelGameObject"), gameObject.transform);
+        value.name = key;
         PixelGameObjects.Add(key, value);
         return value;
     }
@@ -85,13 +91,13 @@ public abstract class Game : MonoBehaviour
     }
 
     public string SpriteStringMaker(Dictionary<PixelPosition,char> SpriteString)
+    {
+        StringBuilder Default = new StringBuilder("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+        foreach(PixelPosition key in SpriteString.Keys)
         {
-            StringBuilder Default = new StringBuilder("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
-            foreach(PixelPosition key in SpriteString.Keys)
-            {
-                Default[(int)((key.x * 8) + key.y)] = SpriteString[key];
-            }
-            return Default.ToString();
+            Default[(int)((key.x * 8) + key.y)] = SpriteString[key];
         }
+        return Default.ToString();
+    }
 }
 

@@ -10,9 +10,14 @@ public class ArcadeManager : MonoBehaviour
 
     Game Instance;
 
-    void Awake()
+    void OnEnable()
     {
         Eyes.OnRayCastHitEvent += RunGame;
+    }
+
+    void OnDisable()
+    {
+        Eyes.OnRayCastHitEvent -= RunGame;
     }
 
     void RunGame(RaycastHit hit)

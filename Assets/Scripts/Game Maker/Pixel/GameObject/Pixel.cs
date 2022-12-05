@@ -29,12 +29,13 @@ public class Pixel : PixelGameObject
         return new Color32(r,g,b,a);
     }
 
-    // use pseudo signed bit of 1
+    // Use pseudo signed bit of 1
     enum PixelColor : long
     {
         o = 1000000000000,
         r = 1255160122255,
-        c = 1255255000255
+        c = 1255255000255,
+        b = 1164219232255
     }
     public void CharToPixel(char letter)
     {

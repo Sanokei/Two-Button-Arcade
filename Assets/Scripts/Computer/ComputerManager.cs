@@ -10,9 +10,13 @@ public class ComputerManager : MonoBehaviour
     
     // FIXME: Flag variable. Bad practice.
     bool _computerMode = false;
-    void Awake()
+    void OnEnable()
     {
         Eyes.OnRayCastHitEvent += OnComputerModeEvent;
+    }
+    void OnDisable()
+    {
+        Eyes.OnRayCastHitEvent -= OnComputerModeEvent;
     }
 
     // public void ShowDottedCircle(DottedCircleEventData eventData)

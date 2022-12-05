@@ -12,23 +12,33 @@ namespace PixelGame
 {
     public class PixelBehaviourScript : PixelComponent
     {
-        string FileName;
         string FileData;
         Script script = new Script();
         ScriptFunctionDelegate onOneButtonPress, onTwoButtonPress;
         ScriptFunctionDelegate onUpdate, onStart;
         
-        void Awake()
+        void OnEnable()
         {
             Game.buttonOnePressEvent += ButtonOnePress;
             Game.buttonTwoPressEvent += ButtonTwoPress;
             Game.onUpdateEvent += OnUpdateEventHandler;
         }
 
-        public void add(string FileName, string FileData)
+        void OnDisable()
         {
-            this.FileName = FileName;
+            Game.buttonOnePressEvent -= ButtonOnePress;
+            Game.buttonTwoPressEvent -= ButtonTwoPress;
+            Game.onUpdateEvent -= OnUpdateEventHandler;
+        }
+
+        public void add(string FileData)
+        {
             this.FileData = FileData;
+        }
+        public void add(string key, PixelGameObject value)
+        {
+            UserData.RegisterAssembly();
+            script.Globals[key] = value;
         }
         public override void Create(Transform parent)
         {

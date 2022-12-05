@@ -9,7 +9,7 @@ namespace PixelGame
     {
         // Psuedo Sprite
         PixelScreen sprite; // Only use this to show on screen
-        string SpriteString = "";
+        public string SpriteString = "";
 
         public void add(string SpriteString)
         {
