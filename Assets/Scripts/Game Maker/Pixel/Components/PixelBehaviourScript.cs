@@ -7,7 +7,12 @@ using MoonSharp.Interpreter.Loaders;
 
 using Lancet;
 using System;
-
+/*
+script.Globals["test"] = new Action<string, MyEnum>(this.TestMethod);
+```lua
+test('hello world', MyEnum.Value1)
+```
+*/
 namespace PixelGame
 {
     public class PixelBehaviourScript : PixelComponent

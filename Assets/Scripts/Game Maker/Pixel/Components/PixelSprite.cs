@@ -5,12 +5,12 @@ using UnityEngine;
 
 namespace PixelGame
 {
+    [MoonSharp.Interpreter.MoonSharpUserData]
     public class PixelSprite : PixelComponent
     {
         // Psuedo Sprite
         PixelScreen sprite; // Only use this to show on screen
         public string SpriteString = "";
-
         public void add(string SpriteString)
         {
             this.SpriteString = SpriteString;
