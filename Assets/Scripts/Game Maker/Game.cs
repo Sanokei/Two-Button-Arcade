@@ -6,7 +6,7 @@ using System.Text;
 
 using PixelGame;
 [MoonSharp.Interpreter.MoonSharpUserData]
-public abstract class Game : MonoBehaviour
+public abstract class Game : MonoBehaviour, IPixelObject
 {
     public delegate void OnButtonClickDelegate();
     public static OnButtonClickDelegate buttonOnePressEvent,buttonTwoPressEvent;

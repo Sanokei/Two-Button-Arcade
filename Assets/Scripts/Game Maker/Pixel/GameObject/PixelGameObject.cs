@@ -7,7 +7,7 @@ using MoonSharp.Interpreter;
 namespace PixelGame
 {
     [MoonSharpUserData]
-    public class PixelGameObject : MonoBehaviour
+    public class PixelGameObject : MonoBehaviour, IPixelObject
     {
         public InspectableDictionary<string,PixelComponent> PixelComponents{get; protected set;}
 

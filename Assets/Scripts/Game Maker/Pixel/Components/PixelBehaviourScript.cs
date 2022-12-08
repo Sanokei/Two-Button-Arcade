@@ -40,7 +40,7 @@ namespace PixelGame
         {
             this.FileData = FileData;
         }
-        public void addPixelGameObjectToScriptGlobals(string key, PixelGameObject value)
+        public void addPixelGameObjectToScriptGlobals(string key, IPixelObject value)
         {
             UserData.RegisterAssembly();
             script.Globals[key] = value;
