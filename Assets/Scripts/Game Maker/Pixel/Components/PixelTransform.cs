@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace PixelGame
 {
+    [MoonSharp.Interpreter.MoonSharpUserData]
     public class PixelTransform : PixelComponent
     {
+        PixelGameObject self;
         PixelPosition position;
         AnchorPixel anchor;
 
@@ -14,10 +16,16 @@ namespace PixelGame
             position = new PixelPosition(0,0);
         }
 
-        public void add(AnchorPixel ap, PixelPosition pp /*hehe*/)
+        public PixelTransform add(AnchorPixel ap, PixelPosition pp /*hehe*/)
         {
             position = pp;
             anchor = ap;
+            return this;
+        }
+
+        public void move(int x, int y)
+        {
+            gameObject.transform.localPosition += new Vector3(x*100,y*100,0);
         }
     }
 }

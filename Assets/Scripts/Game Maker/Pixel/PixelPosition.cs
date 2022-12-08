@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace PixelGame
 {
+    [MoonSharp.Interpreter.MoonSharpUserData]
     public class PixelPosition
     {
         public uint x;
