@@ -5,8 +5,8 @@ using BuildingBlocks.DataTypes;
 using System.Text;
 
 using PixelGame;
-
-public abstract class Game : MonoBehaviour
+[MoonSharp.Interpreter.MoonSharpUserData]
+public abstract class Game : MonoBehaviour, IPixelObject
 {
     public delegate void OnButtonClickDelegate();
     public static OnButtonClickDelegate buttonOnePressEvent,buttonTwoPressEvent;
@@ -55,7 +55,7 @@ public abstract class Game : MonoBehaviour
     }
     /*****************************************************/
     public Image Skybox;
-    public InspectableDictionary<string,PixelGameObject> PixelGameObjects;
+    public InspectableDictionary<string,PixelGameObject> PixelGameObjects = new InspectableDictionary<string, PixelGameObject>();
 
     public PixelGameObject this[string key] {
         get 
@@ -70,11 +70,15 @@ public abstract class Game : MonoBehaviour
 
     // add components to gameobjects
     public PixelGameObject add(string key)
-    {           
-        PixelGameObject value = Instantiate<PixelGameObject>(Resources.Load<PixelGameObject>("Prefabs/Game/PixelGameObject"), gameObject.transform);
-        value.name = key;
-        PixelGameObjects.Add(key, value);
-        return value;
+    {        
+        if(!PixelGameObjects.Keys.Contains(key))  
+        {
+            PixelGameObject value = Instantiate<PixelGameObject>(Resources.Load<PixelGameObject>("Prefabs/Game/PixelGameObject"), gameObject.transform);
+            value.name = key;
+            PixelGameObjects.Add(key, value);
+            return value;
+        }
+        throw new MoonSharp.Interpreter.ScriptRuntimeException("Key already used to make PixelGameObject");
     }
 
     public void CompileAndRun()
