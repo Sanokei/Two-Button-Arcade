@@ -14,6 +14,10 @@ namespace PixelGame
         public void add(string SpriteString)
         {
             this.SpriteString = SpriteString;
+            if(SpriteString != "")
+            {
+                sprite.ConvertSpriteStringToScreen(SpriteString);
+            }
         }
 
         public override void Create(Transform parent)

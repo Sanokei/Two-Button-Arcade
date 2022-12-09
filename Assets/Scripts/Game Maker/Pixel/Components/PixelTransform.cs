@@ -23,9 +23,18 @@ namespace PixelGame
             return this;
         }
 
-        public void move(int x, int y)
+        public PixelPosition move(PixelPosition pixelPosition)
+        {
+            gameObject.transform.localPosition += new Vector3(pixelPosition.x*100,pixelPosition.y*100,0);
+            position = new PixelPosition((uint)(gameObject.transform.localPosition.x / 100f),(uint)(gameObject.transform.localPosition.y / 100f));
+            return position;
+        }
+
+        public PixelPosition move(int x, int y)
         {
             gameObject.transform.localPosition += new Vector3(x*100,y*100,0);
+            position = new PixelPosition((uint)(gameObject.transform.localPosition.x / 100f),(uint)(gameObject.transform.localPosition.y / 100f));
+            return position;
         }
     }
 }

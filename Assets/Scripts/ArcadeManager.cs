@@ -26,7 +26,9 @@ public class ArcadeManager : MonoBehaviour
             return;
         if(Instance != null)
             Destroy(Instance.gameObject);
+            
         Instance = Instantiate(game,gameObject.transform);
+
         Instance.setCabinet(this);
         Instance.StartGame();
     }

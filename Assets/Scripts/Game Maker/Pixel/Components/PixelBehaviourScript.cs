@@ -15,6 +15,7 @@ test('hello world', MyEnum.Value1)
 */
 namespace PixelGame
 {
+    [MoonSharp.Interpreter.MoonSharpUserData]
     public class PixelBehaviourScript : PixelComponent
     {
         string FileData;
@@ -47,16 +48,16 @@ namespace PixelGame
         }
         public override void Create(Transform parent)
         {
-            // add all the gameobjects to global variables for lua
-            RunScript(FileData,script);
         }
 
-        public void RunScript(string FileData, Script script)
+        public void RunScript()
         {
+            UserData.RegisterAssembly();
+
             // sets default options
             script.Options.DebugPrint = (x) => {Debug.Log(x);};
             ((ScriptLoaderBase)script.Options.ScriptLoader).IgnoreLuaPathGlobal = true;
-            ((ScriptLoaderBase)script.Options.ScriptLoader).ModulePaths = ScriptLoaderBase.UnpackStringPaths(System.IO.Path.Combine(Application.persistentDataPath,"?") + ".lua");
+            ((ScriptLoaderBase)script.Options.ScriptLoader).ModulePaths = ScriptLoaderBase.UnpackStringPaths(System.IO.Path.Combine(Application.persistentDataPath,"/modules/","?") + ".lua");
             
             // adds a lot of the internal commands
             // script.Globals["internal"] = new Internal();

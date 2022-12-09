@@ -4,8 +4,10 @@ using UnityEngine.UI;
 using BuildingBlocks.DataTypes;
 using System.Text;
 
+using MoonSharp.Interpreter;
+
 using PixelGame;
-[MoonSharp.Interpreter.MoonSharpUserData]
+[MoonSharpUserData]
 public abstract class Game : MonoBehaviour, IPixelObject
 {
     public delegate void OnButtonClickDelegate();
@@ -78,22 +80,28 @@ public abstract class Game : MonoBehaviour, IPixelObject
             PixelGameObjects.Add(key, value);
             return value;
         }
-        throw new MoonSharp.Interpreter.ScriptRuntimeException("Key already used to make PixelGameObject");
+        throw new ScriptRuntimeException("Key already used to make PixelGameObject");
     }
 
-    public void CompileAndRun()
+    // public void CompileAndRun()
+    // {
+    //     // <string,Layer>
+    //     foreach(PixelGameObject key in PixelGameObjects.Values)
+    //     {
+    //         // spawn the components
+    //         foreach(PixelComponent pixelComponent in key.PixelComponents.Values)
+    //         {
+    //             pixelComponent.Create(key.gameObject.transform);
+    //         }
+    //     }
+    // }
+    public string SpriteStringMaker(DynValue SpriteString)
     {
-        // <string,Layer>
-        foreach(PixelGameObject key in PixelGameObjects.Values)
-        {
-            // spawn the components
-            foreach(PixelComponent pixelComponent in key.PixelComponents.Values)
-            {
-                pixelComponent.Create(key.gameObject.transform);
-            }
-        }
+        // https://github.com/moonsharp-devs/moonsharp/blob/master/src/MoonSharp.Interpreter/Interop/Converters/TableConversions.cs
+        // The level of abstraction in their code makes me want to commit sepukku
+        // layers and layers of fucking private internal
+        return SpriteStringMaker((Dictionary<PixelPosition,char>) SpriteString.ToObject(typeof(Dictionary<PixelPosition,char>)));
     }
-
     public string SpriteStringMaker(Dictionary<PixelPosition,char> SpriteString)
     {
         StringBuilder Default = new StringBuilder("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
