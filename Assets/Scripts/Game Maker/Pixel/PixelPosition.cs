@@ -7,8 +7,8 @@ namespace PixelGame
     [MoonSharp.Interpreter.MoonSharpUserData]
     public class PixelPosition
     {
-        public uint x;
-        public uint y;
+        public int x;
+        public int y;
 
         public PixelPosition()
         {
@@ -16,7 +16,7 @@ namespace PixelGame
             y = 0;
         }
 
-        public PixelPosition(uint x, uint y)
+        public PixelPosition(int x, int y)
         {
             this.x = x;
             this.y = y;

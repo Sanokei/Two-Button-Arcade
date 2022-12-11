@@ -20,9 +20,10 @@ namespace PixelGame
             }
         }
 
-        public override void Create(Transform parent)
+        public override void Create(PixelGameObject parent)
         {
-            sprite = Instantiate<PixelScreen>(Resources.Load<PixelScreen>("Prefabs/Game/PixelScreen"),parent);
+            // FIXME: add to PixelGameObject instead as "Child"
+            sprite = Instantiate<PixelScreen>(Resources.Load<PixelScreen>("Prefabs/Game/PixelScreen"),parent.gameObject.transform);
             if(SpriteString != "")
             {
                 sprite.ConvertSpriteStringToScreen(SpriteString);

@@ -46,7 +46,7 @@ namespace PixelGame
             UserData.RegisterAssembly();
             script.Globals[key] = value;
         }
-        public override void Create(Transform parent)
+        public override void Create(PixelGameObject parent)
         {
         }
 

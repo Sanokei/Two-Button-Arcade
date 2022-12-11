@@ -23,6 +23,7 @@ namespace PixelGame
         {
             PixelComponents = new InspectableDictionary<string, PixelComponent>(); 
             UserData.RegisterAssembly();
+
         }
         public dynamic this[string key] {
             get 
@@ -71,7 +72,7 @@ namespace PixelGame
                     newValue.addPixelGameObjectToScriptGlobals(go.name,this); // Add the game object to the scripts globals
                 PixelComponents.Add(key,newValue);
                 if(newValue is ISpawnable)
-                    newValue.Create(go.transform);
+                    newValue.Create(this);
                 return newValue;
             }
             throw new MoonSharp.Interpreter.ScriptRuntimeException("Could Not Add Dynamic Value");

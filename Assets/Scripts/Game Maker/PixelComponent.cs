@@ -6,6 +6,6 @@ namespace PixelGame
 {
     public abstract class PixelComponent : MonoBehaviour, ISpawnable
     {
-        public abstract void Create(Transform parent);
+        public abstract void Create(PixelGameObject parent);
     }
 }

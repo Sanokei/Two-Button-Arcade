@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace PixelGame
 {
-    public class AnchorPixel : PixelComponent
+    public class PixelAnchor : PixelComponent
     {
         public PixelPosition position;
         public PixelSprite sprite;
 
-        public override void Create(Transform parent)
+        public override void Create(PixelGameObject parent)
         {
             position = new PixelPosition(0,0);
         }

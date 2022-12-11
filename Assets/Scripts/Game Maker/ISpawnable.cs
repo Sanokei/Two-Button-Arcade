@@ -6,6 +6,6 @@ namespace PixelGame
 {
     public interface ISpawnable
     {
-        public void Create(Transform parent);
+        public void Create(PixelGameObject parent);
     }
 }

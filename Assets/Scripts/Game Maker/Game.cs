@@ -70,12 +70,16 @@ public abstract class Game : MonoBehaviour, IPixelObject
         }
     }
 
-    // add components to gameobjects
     public PixelGameObject add(string key)
+    {  
+        return add(key,gameObject.transform);
+    }
+    // add components to gameobjects
+    public PixelGameObject add(string key, Transform parent)
     {        
         if(!PixelGameObjects.Keys.Contains(key))  
         {
-            PixelGameObject value = Instantiate<PixelGameObject>(Resources.Load<PixelGameObject>("Prefabs/Game/PixelGameObject"), gameObject.transform);
+            PixelGameObject value = Instantiate<PixelGameObject>(Resources.Load<PixelGameObject>("Prefabs/Game/PixelGameObject"), parent);
             value.name = key;
             PixelGameObjects.Add(key, value);
             return value;
