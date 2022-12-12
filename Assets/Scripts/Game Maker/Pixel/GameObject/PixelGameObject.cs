@@ -25,6 +25,7 @@ namespace PixelGame
             UserData.RegisterAssembly();
 
         }
+        
         public dynamic this[string key] {
             get 
             {
@@ -35,6 +36,7 @@ namespace PixelGame
                 PixelComponents.Add(key,value);
             }
         }
+
         public dynamic add(string key, dynamic value)
         {
             if(value is string)
@@ -62,6 +64,7 @@ namespace PixelGame
             }
             return add(key,value,gameObject);
         }
+
         public dynamic add(string key, dynamic value, GameObject go)
         {
             dynamic newValue = go.AddComponent(value);

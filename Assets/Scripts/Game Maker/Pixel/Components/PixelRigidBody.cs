@@ -15,6 +15,7 @@ namespace PixelGame
         {
             rb = gameObject.AddComponent<Rigidbody2D>();
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+            rb.bodyType = RigidbodyType2D.Dynamic;
             rb.isKinematic = false;
             
             rb.gravityScale = gravityScale;

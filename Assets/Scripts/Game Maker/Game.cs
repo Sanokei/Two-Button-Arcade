@@ -11,7 +11,7 @@ using PixelGame;
 public abstract class Game : MonoBehaviour, IPixelObject
 {
     public delegate void OnButtonClickDelegate();
-    public static OnButtonClickDelegate buttonOnePressEvent,buttonTwoPressEvent;
+    public static OnButtonClickDelegate buttonOnePressEvent, buttonTwoPressEvent, buttonOneUpEvent, buttonTwoUpEvent;
     public delegate void OnUpdateDelegate();
     public static OnUpdateDelegate onUpdateEvent;
     public abstract void StartGame();
@@ -28,7 +28,7 @@ public abstract class Game : MonoBehaviour, IPixelObject
     }
 
     void ButtonPress(RaycastHit hit)
-    {
+    { 
         if(Input.GetKeyDown(KeyCode.Q))
         {
             buttonOnePressEvent?.Invoke();
@@ -38,9 +38,21 @@ public abstract class Game : MonoBehaviour, IPixelObject
             buttonTwoPressEvent?.Invoke();
         }
     }
+    void FixedUpdate()
+    {
+        // Input and FixedUpdate dont play nicely
+        onUpdateEvent?.Invoke();
+    }
     void Update()
     {
-        onUpdateEvent?.Invoke();
+        if(Input.GetKeyUp(KeyCode.Q))
+        {
+            buttonOneUpEvent?.Invoke();
+        }
+        if(Input.GetKeyUp(KeyCode.E))
+        {
+            buttonTwoUpEvent?.Invoke();
+        }
     }
 
     public void setCabinet(ArcadeManager cabinet)

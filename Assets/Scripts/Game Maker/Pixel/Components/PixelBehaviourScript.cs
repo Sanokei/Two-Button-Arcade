@@ -20,21 +20,47 @@ namespace PixelGame
     {
         string FileData;
         Script script = new Script();
-        ScriptFunctionDelegate onOneButtonPress, onTwoButtonPress;
+        ScriptFunctionDelegate onOneButtonPress, onTwoButtonPress, onOneButtonUp, onTwoButtonUp;
         ScriptFunctionDelegate onUpdate, onStart;
+
+        // public ScriptFunctionDelegate's to use as the pixel components
+        ScriptFunctionDelegate onTriggerEnter, onTriggerStay, onTriggerExit;
+        ScriptFunctionDelegate onCollisionEnter, onCollisionStay, onCollisionExit;
         
         void OnEnable()
         {
             Game.buttonOnePressEvent += ButtonOnePress;
             Game.buttonTwoPressEvent += ButtonTwoPress;
+            Game.buttonOneUpEvent += ButtonOneUp;
+            Game.buttonTwoUpEvent += ButtonTwoUp;
+
             Game.onUpdateEvent += OnUpdateEventHandler;
+
+            PixelCollider.onTriggerEnter += TriggerEnter;
+            PixelCollider.onTriggerStay += TriggerStay;
+            PixelCollider.onTriggerExit += TriggerExit;
+
+            PixelCollider.onCollisionEnter += CollisionEnter;
+            PixelCollider.onCollisionStay += CollisionStay;
+            PixelCollider.onCollisionExit += CollisionExit;
         }
 
         void OnDisable()
         {
             Game.buttonOnePressEvent -= ButtonOnePress;
             Game.buttonTwoPressEvent -= ButtonTwoPress;
+            Game.buttonOneUpEvent -= ButtonOneUp;
+            Game.buttonTwoUpEvent -= ButtonTwoUp;
+            
             Game.onUpdateEvent -= OnUpdateEventHandler;
+
+            PixelCollider.onTriggerEnter += TriggerEnter;
+            PixelCollider.onTriggerStay += TriggerStay;
+            PixelCollider.onTriggerExit += TriggerExit;
+
+            PixelCollider.onCollisionEnter += CollisionEnter;
+            PixelCollider.onCollisionStay += CollisionStay;
+            PixelCollider.onCollisionExit += CollisionExit;
         }
 
         public void add(string FileData)
@@ -64,37 +90,82 @@ namespace PixelGame
 
             DynValue fn = script.LoadString(FileData);
             fn.Function.Call();
-            try
-            {
-                onStart = script.Globals.Get("Start").Function.GetDelegate();
-                onOneButtonPress = script.Globals.Get("ButtonOnePress").Function.GetDelegate();
-                onTwoButtonPress = script.Globals.Get("ButtonTwoPress").Function.GetDelegate();
-            }catch{}
+
+            // cant do null checks cuz .Get returns DynValue.Nil not null
+            // onStart = script.Globals.Get("Start").Function.GetDelegate() ?? null;
+
+            onStart = script.Globals.Get("Start") != DynValue.Nil ? script.Globals.Get("Start").Function.GetDelegate() : null;
+
+            onOneButtonPress = script.Globals.Get("ButtonOnePress") != DynValue.Nil ? script.Globals.Get("ButtonOnePress").Function.GetDelegate() : null;
+            onTwoButtonPress = script.Globals.Get("ButtonTwoPress") != DynValue.Nil ? script.Globals.Get("ButtonTwoPress").Function.GetDelegate() : null;
+            onOneButtonUp = script.Globals.Get("ButtonOneUp") != DynValue.Nil ? script.Globals.Get("ButtonOneUp").Function.GetDelegate() : null;
+            onTwoButtonUp = script.Globals.Get("ButtonTwoUp") != DynValue.Nil ? script.Globals.Get("ButtonTwoUp").Function.GetDelegate() : null;
+
+            onCollisionEnter = script.Globals.Get("OnCollisionEnter") != DynValue.Nil ? script.Globals.Get("OnCollisionEnter").Function.GetDelegate() : null;
+            onCollisionStay = script.Globals.Get("OnCollisionStay") != DynValue.Nil ? script.Globals.Get("OnCollisionStay").Function.GetDelegate() : null;
+            onCollisionExit = script.Globals.Get("OnCollisionExit") != DynValue.Nil ? script.Globals.Get("OnCollisionExit").Function.GetDelegate() : null;
+
+
+            onTriggerEnter = script.Globals.Get("OnTriggerEnter") != DynValue.Nil ? script.Globals.Get("OnTriggerEnter").Function.GetDelegate() : null;
+            onTriggerStay = script.Globals.Get("OnTriggerStay") != DynValue.Nil ? script.Globals.Get("OnTriggerStay").Function.GetDelegate() : null;
+            onTriggerExit = script.Globals.Get("OnTriggerExit") != DynValue.Nil ? script.Globals.Get("OnTriggerExit").Function.GetDelegate() : null;
+            
+            
             // onAwake
             onStart?.Invoke();
-
-            try
-            {
-                onUpdate = script.Globals.Get("Update").Function.GetDelegate();
-            }
-            catch
-            {
-
-            }
+            onUpdate = script.Globals.Get("Update") != DynValue.Nil ? script.Globals.Get("Update").Function.GetDelegate() : null;
         }
+
+        // all event handlers that invoke script delegate
         private void OnUpdateEventHandler()
         {
             onUpdate?.Invoke();
         }
 
-        public void ButtonOnePress()
+        private void ButtonOnePress()
         {
             onOneButtonPress?.Invoke();
         }
 
-        public void ButtonTwoPress()
+        private void ButtonTwoPress()
         {
             onTwoButtonPress?.Invoke();
+        }
+        private void ButtonTwoUp()
+        {
+            onTwoButtonUp?.Invoke();
+        }
+
+        private void ButtonOneUp()
+        {
+            onOneButtonUp?.Invoke();
+        }
+
+        //
+        private void TriggerEnter(Collider2D other, PixelGameObject parent)
+        {
+            onTriggerEnter?.Invoke(DynValue.NewString(parent.name));
+        }
+        private void TriggerStay(Collider2D other, PixelGameObject parent)
+        {
+            onTriggerStay?.Invoke(DynValue.NewString(parent.name));
+        }
+        private void TriggerExit(Collider2D other, PixelGameObject parent)
+        {
+            onTriggerExit?.Invoke(DynValue.NewString(parent.name));
+        }
+        //
+        private void CollisionEnter(Collision2D other, PixelGameObject parent)
+        {
+            onCollisionEnter?.Invoke(DynValue.NewString(parent.name));
+        } 
+        private void CollisionStay(Collision2D other, PixelGameObject parent)
+        {
+            onCollisionStay?.Invoke(DynValue.NewString(parent.name));
+        }
+        private void CollisionExit(Collision2D other, PixelGameObject parent)
+        {
+            onCollisionExit?.Invoke(DynValue.NewString(parent.name));
         }
     }
 }

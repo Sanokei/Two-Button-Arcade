@@ -25,7 +25,22 @@ public class JumpGame : Game
                     {new PixelPosition(7,0), 'c'}
                 }
             )
+        ).add(
+            game.SpriteStringMaker(
+                new Dictionary<PixelPosition, char>()
+                {
+                    {new PixelPosition(5,3), 'c'}
+                }
+            )
+        ).add(
+            game.SpriteStringMaker(
+                new Dictionary<PixelPosition, char>()
+                {
+                    {new PixelPosition(6,6), 'c'}
+                }
+            )
         );
+
         game["Floor"].add("pc", typeof(PixelCollider)).add(
             new List<PixelPosition>()
             {
@@ -38,7 +53,18 @@ public class JumpGame : Game
                 new PixelPosition(6,0),
                 new PixelPosition(7,0)
             }
+        ).add(
+            new List<PixelPosition>()
+            {
+                new PixelPosition(5,3)
+            }
+        ).add(
+            new List<PixelPosition>()
+            {
+                new PixelPosition(6,6)
+            }
         );
+
         /* Player */
         game["Player"].add("Player_Still", typeof(PixelSprite)).add(
             game.SpriteStringMaker(
@@ -61,6 +87,7 @@ public class JumpGame : Game
                 new PixelPosition(0,1)
             }
         );
+
         /* Main Canvas */
         game["Main Canvas"].add("Main Canvas", typeof(PixelSprite)).add(
             new string('b',64)
@@ -82,6 +109,15 @@ public class JumpGame : Game
                 print('button 2')
                 Player['Transform'].move(1,0);
                 
+            end
+            function ButtonOneUp()
+                print('Button One UP')
+            end
+            function ButtonTwoUp()
+                print('Button One UP')
+            end
+            function OnCollisionEnter(other)
+                print(other)
             end
             "
         );

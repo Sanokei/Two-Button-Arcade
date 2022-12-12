@@ -29,6 +29,10 @@ namespace PixelGame
 
         public PixelPosition move(int x, int y)
         {
+            // FIXME:
+            // funky stuff happens when I try to make this 
+            // gameobject.transform.Translate
+            // no idea why
             gameObject.transform.localPosition += new Vector3(x*100,y*100,0);
             position = new PixelPosition((int)(gameObject.transform.localPosition.x / 100f),(int)(gameObject.transform.localPosition.y / 100f));
             return position;
