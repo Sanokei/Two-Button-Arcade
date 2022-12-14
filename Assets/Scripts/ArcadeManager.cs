@@ -30,6 +30,9 @@ public class ArcadeManager : MonoBehaviour
         Instance = Instantiate(game,gameObject.transform);
 
         Instance.setCabinet(this);
+
+        Instance.AwakeGame();
+        Instance.InitializeGame();
         Instance.StartGame();
     }
 }

@@ -14,6 +14,8 @@ public abstract class Game : MonoBehaviour, IPixelObject
     public static OnButtonClickDelegate buttonOnePressEvent, buttonTwoPressEvent, buttonOneUpEvent, buttonTwoUpEvent;
     public delegate void OnUpdateDelegate();
     public static OnUpdateDelegate onUpdateEvent;
+    public abstract void AwakeGame();
+    public abstract void InitializeGame();
     public abstract void StartGame();
     public ArcadeManager Cabinet;
 
@@ -99,18 +101,6 @@ public abstract class Game : MonoBehaviour, IPixelObject
         throw new ScriptRuntimeException("Key already used to make PixelGameObject");
     }
 
-    // public void CompileAndRun()
-    // {
-    //     // <string,Layer>
-    //     foreach(PixelGameObject key in PixelGameObjects.Values)
-    //     {
-    //         // spawn the components
-    //         foreach(PixelComponent pixelComponent in key.PixelComponents.Values)
-    //         {
-    //             pixelComponent.Create(key.gameObject.transform);
-    //         }
-    //     }
-    // }
     public string SpriteStringMaker(DynValue SpriteString)
     {
         // https://github.com/moonsharp-devs/moonsharp/blob/master/src/MoonSharp.Interpreter/Interop/Converters/TableConversions.cs

@@ -3,12 +3,15 @@ using PixelGame;
 using UnityEngine;
 public class JumpGame : Game
 {
-    public override void StartGame()
+    public override void AwakeGame()
     {
         // Create PixelGameObject's
         game.add("Main Canvas");
         game.add("Player");
         game.add("Floor");
+    }
+    public override void InitializeGame()
+    {
         // Add all the components
         /* Floor */
         game["Floor"].add("Floor_Texture", typeof(PixelSprite)).add(
@@ -97,18 +100,16 @@ public class JumpGame : Game
             @"-- player movement script
             function Start()
                 game.add('lol');
+                game['lol'].add('text','PixelText').add('yooo nice', 2,1)
             end
             function Update()
                 print('crash test')
             end
             function ButtonOnePress()
-                print('button 1');
-                Player['Transform'].move(0,2);
+                Player['Transform'].move(0,3);
             end
             function ButtonTwoPress()
-                print('button 2')
                 Player['Transform'].move(1,0);
-                
             end
             function ButtonOneUp()
                 print('Button One UP')
@@ -119,9 +120,17 @@ public class JumpGame : Game
             function OnCollisionEnter(other)
                 print(other)
             end
+
+            function OnTriggerEnter(other)
+                print(other)
+            end
             "
         );
-        game["Player"]["PlayerMovement"].addPixelGameObjectToScriptGlobals("game",game);
+    }
+
+    public override void StartGame()
+    {
+        game["Player"]["PlayerMovement"].addPixelGameObjectToScriptGlobals("game",game); // get out of here
         game["Player"]["PlayerMovement"].RunScript();
     }
 }

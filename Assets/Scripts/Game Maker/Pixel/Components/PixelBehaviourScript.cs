@@ -74,6 +74,7 @@ namespace PixelGame
         }
         public override void Create(PixelGameObject parent)
         {
+            addPixelGameObjectToScriptGlobals("game",parent);
         }
 
         public void RunScript()

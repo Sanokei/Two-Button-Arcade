@@ -64,7 +64,7 @@ namespace PixelGame
             }
             return add(key,value,gameObject);
         }
-
+        
         public dynamic add(string key, dynamic value, GameObject go)
         {
             dynamic newValue = go.AddComponent(value);

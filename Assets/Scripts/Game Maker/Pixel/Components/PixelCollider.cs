@@ -21,7 +21,7 @@ namespace PixelGame
             this.parent = parent;
         }
 
-        public PixelComponent add(List<PixelPosition> pixelPositions)
+        public PixelComponent add(List<PixelPosition> pixelPositions, bool isTrigger = false)
         {
             // convert all the pixel positions to coords
             List<MyVector2> Points = new List<MyVector2>();
@@ -36,6 +36,7 @@ namespace PixelGame
             // get the perimeter using 'quickhull' convex hull algorithm
             PolygonCollider2D pc2d = gameObject.AddComponent<PolygonCollider2D>();
             pc2d.SetPath(0, MyVector2ToVector2(QuickhullAlgorithm2D.GenerateConvexHull(Points, false)));
+            pc2d.isTrigger = isTrigger;
             pixelCollider.Add(pc2d);
 
             return this;
