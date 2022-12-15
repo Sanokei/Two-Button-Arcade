@@ -8,17 +8,30 @@ using MoonSharp.Interpreter;
 
 using PixelGame;
 [MoonSharpUserData]
-public abstract class Game : MonoBehaviour, IPixelObject
+public abstract class JargonEngine : MonoBehaviour, IPixelObject
 {
+    // Button Delegates
     public delegate void OnButtonClickDelegate();
     public static OnButtonClickDelegate buttonOnePressEvent, buttonTwoPressEvent, buttonOneUpEvent, buttonTwoUpEvent;
+    
+    // Totality Execution Order
+        // Awake, start, onenable and ondisable need to be native to the script
     public delegate void OnUpdateDelegate();
     public static OnUpdateDelegate onUpdateEvent;
+
+    // Execution Order
+    public delegate void TotalityExecutionOrder();
+    public static TotalityExecutionOrder awakeGameEvent, initializeGameEvent, startGameEvent; 
+    
+    // Execution 
     public abstract void AwakeGame();
     public abstract void InitializeGame();
     public abstract void StartGame();
+
+    // Cabinet
     public ArcadeManager Cabinet;
 
+    // Unity Execution
     void OnEnable()
     {
         Eyes.OnRayCastHitEvent += ButtonPress;
@@ -27,18 +40,6 @@ public abstract class Game : MonoBehaviour, IPixelObject
     void OnDisable()
     {
         Eyes.OnRayCastHitEvent -= ButtonPress;
-    }
-
-    void ButtonPress(RaycastHit hit)
-    { 
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            buttonOnePressEvent?.Invoke();
-        }
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            buttonTwoPressEvent?.Invoke();
-        }
     }
     void FixedUpdate()
     {
@@ -56,20 +57,35 @@ public abstract class Game : MonoBehaviour, IPixelObject
             buttonTwoUpEvent?.Invoke();
         }
     }
+    
+/*****************************************************/
+    void ButtonPress(RaycastHit hit)
+    { 
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            buttonOnePressEvent?.Invoke();
+        }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            buttonTwoPressEvent?.Invoke();
+        }
+    }
 
+/*****************************************************/
     public void setCabinet(ArcadeManager cabinet)
     {
         this.Cabinet = cabinet;
     }
     
-    public Game game
+    public JargonEngine game
     {
         get
         {
             return this;
         }
     }
-    /*****************************************************/
+    
+/*****************************************************/
     public Image Skybox;
     public InspectableDictionary<string,PixelGameObject> PixelGameObjects = new InspectableDictionary<string, PixelGameObject>();
 
@@ -100,6 +116,8 @@ public abstract class Game : MonoBehaviour, IPixelObject
         }
         throw new ScriptRuntimeException("Key already used to make PixelGameObject");
     }
+
+/*****************************************************/
 
     public string SpriteStringMaker(DynValue SpriteString)
     {

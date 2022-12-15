@@ -22,6 +22,11 @@ namespace PixelGame
             return this;
         }
 
+        public PixelTransform add(int x, int y)
+        {
+            return add(new PixelPosition(x,y));
+        }
+
         public PixelPosition move(PixelPosition pixelPosition)
         {
             return move(pixelPosition.x, pixelPosition.y);
@@ -33,7 +38,8 @@ namespace PixelGame
             // funky stuff happens when I try to make this 
             // gameobject.transform.Translate
             // no idea why
-            gameObject.transform.localPosition += new Vector3(x*100,y*100,0);
+            PixelPosition target = new PixelPosition(x,y);
+            transform.localPosition = Vector3.MoveTowards(gameObject.transform.localPosition,new Vector3(target.x,target.y), Time.deltaTime * 1f);
             position = new PixelPosition((int)(gameObject.transform.localPosition.x / 100f),(int)(gameObject.transform.localPosition.y / 100f));
             return position;
         }

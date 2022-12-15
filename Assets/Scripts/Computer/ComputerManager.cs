@@ -6,7 +6,8 @@ public class ComputerManager : MonoBehaviour
 {
     public delegate void DeactivateInputField();
     public static event DeactivateInputField DeactivateInputFieldEvent;
-    public PlayerMovement playerMovement;
+    [SerializeField] PlayerMovement _playerMovement;
+    public BoxCollider ComputerCollider;
     
     // FIXME: Flag variable. Bad practice.
     bool _computerMode = false;
@@ -58,7 +59,7 @@ public class ComputerManager : MonoBehaviour
     }
     public void ChangeComputerMode(bool Override = false, bool OverrideBool = false)
     {
-        playerMovement.canMove = Override ? !OverrideBool : !_computerMode;
+        _playerMovement.canMove = Override ? !OverrideBool : !_computerMode;
         StartCoroutine(Co_ChangeMouseState(Override ? OverrideBool : _computerMode)); // I dont remember why I made this a coroutine
     }
 

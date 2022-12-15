@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using PixelGame;
 using UnityEngine;
-public class JumpGame : Game
+public class JumpGame : JargonEngine
 {
     public override void AwakeGame()
     {

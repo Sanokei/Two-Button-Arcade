@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1581766351173631622}
   - component: {fileID: 1581766351173631623}
   - component: {fileID: 1581766351173631643}
-  - component: {fileID: 1967152084717148505}
+  - component: {fileID: 1038526199756625643}
   m_Layer: 0
-  m_Name: JumpGame
+  m_Name: AlphaJargon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 0}
---- !u!114 &1967152084717148505
+--- !u!114 &1038526199756625643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,10 +125,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1581766351173631617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e234d58c51b1a5e478db202b86e15c2b, type: 3}
+  m_Script: {fileID: 11500000, guid: e79283d1bc4c8384dbcab1578dedfc86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cabinet: {fileID: 0}
   Skybox: {fileID: 0}
   PixelGameObjects:
     ItemKeys: []
     ItemValues: []
+  Compiler: {fileID: 0}

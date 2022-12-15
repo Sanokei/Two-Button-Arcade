@@ -129,8 +129,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.1709082, y: 1.3184662, z: 1.2464983}
-  m_Center: {x: -0.14249763, y: 0.10478227, z: -1.140991}
+  m_Size: {x: 2.0997112, y: 1.3381277, z: 1.2464982}
+  m_Center: {x: -0.14381516, y: 0.09495149, z: -1.140991}
 --- !u!114 &1189290482574399165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3640d4169f3edf14c917c7f94f91a817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 0}
+  _playerMovement: {fileID: 0}
+  ComputerCollider: {fileID: 0}
 --- !u!1 &1189290483706491647
 GameObject:
   m_ObjectHideFlags: 0

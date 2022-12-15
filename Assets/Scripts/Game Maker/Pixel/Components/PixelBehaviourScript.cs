@@ -5,8 +5,6 @@ using UnityEngine;
 using MoonSharp.Interpreter;
 using MoonSharp.Interpreter.Loaders;
 
-using Lancet;
-using System;
 /*
 script.Globals["test"] = new Action<string, MyEnum>(this.TestMethod);
 ```lua
@@ -29,12 +27,12 @@ namespace PixelGame
         
         void OnEnable()
         {
-            Game.buttonOnePressEvent += ButtonOnePress;
-            Game.buttonTwoPressEvent += ButtonTwoPress;
-            Game.buttonOneUpEvent += ButtonOneUp;
-            Game.buttonTwoUpEvent += ButtonTwoUp;
+            JargonEngine.buttonOnePressEvent += ButtonOnePress;
+            JargonEngine.buttonTwoPressEvent += ButtonTwoPress;
+            JargonEngine.buttonOneUpEvent += ButtonOneUp;
+            JargonEngine.buttonTwoUpEvent += ButtonTwoUp;
 
-            Game.onUpdateEvent += OnUpdateEventHandler;
+            JargonEngine.onUpdateEvent += OnUpdateEventHandler;
 
             PixelCollider.onTriggerEnter += TriggerEnter;
             PixelCollider.onTriggerStay += TriggerStay;
@@ -47,12 +45,12 @@ namespace PixelGame
 
         void OnDisable()
         {
-            Game.buttonOnePressEvent -= ButtonOnePress;
-            Game.buttonTwoPressEvent -= ButtonTwoPress;
-            Game.buttonOneUpEvent -= ButtonOneUp;
-            Game.buttonTwoUpEvent -= ButtonTwoUp;
+            JargonEngine.buttonOnePressEvent -= ButtonOnePress;
+            JargonEngine.buttonTwoPressEvent -= ButtonTwoPress;
+            JargonEngine.buttonOneUpEvent -= ButtonOneUp;
+            JargonEngine.buttonTwoUpEvent -= ButtonTwoUp;
             
-            Game.onUpdateEvent -= OnUpdateEventHandler;
+            JargonEngine.onUpdateEvent -= OnUpdateEventHandler;
 
             PixelCollider.onTriggerEnter += TriggerEnter;
             PixelCollider.onTriggerStay += TriggerStay;
@@ -74,10 +72,13 @@ namespace PixelGame
         }
         public override void Create(PixelGameObject parent)
         {
-            addPixelGameObjectToScriptGlobals("game",parent);
         }
 
         public void RunScript()
+        {
+            RunScript(this.FileData);
+        }
+        public void RunScript(string FileData)
         {
             UserData.RegisterAssembly();
 

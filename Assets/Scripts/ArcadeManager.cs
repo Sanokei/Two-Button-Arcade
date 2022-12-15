@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class ArcadeManager : MonoBehaviour
 {
-    [SerializeField] Game game; // Game child classes
+    [SerializeField] AlphaJargon Jargon;
     [SerializeField] Collider ArcadeCollider;
-    public GameObject Computer;
-
-    Game Instance;
-
+    [SerializeField] ComputerManager Computer;
+    public string FileData;
+    AlphaJargon Instance;
     void OnEnable()
     {
         Eyes.OnRayCastHitEvent += RunGame;
+        Eyes.OnRayCastHitEvent += HackArcade;
     }
 
     void OnDisable()
     {
         Eyes.OnRayCastHitEvent -= RunGame;
+        Eyes.OnRayCastHitEvent -= HackArcade;
     }
 
     void RunGame(RaycastHit hit)
@@ -26,13 +27,25 @@ public class ArcadeManager : MonoBehaviour
             return;
         if(Instance != null)
             Destroy(Instance.gameObject);
-            
-        Instance = Instantiate(game,gameObject.transform);
+
+        Instance = Instantiate(Jargon, gameObject.transform);
 
         Instance.setCabinet(this);
+        Instance.Compiler.add(FileData);
+        Instance.Compiler.RunScript();
 
         Instance.AwakeGame();
         Instance.InitializeGame();
         Instance.StartGame();
+    }
+
+    void HackArcade(RaycastHit hit)
+    {
+        if(!Input.GetKeyDown(KeyCode.H))
+            return;
+        if(hit.collider.Equals(ArcadeCollider) && Computer.gameObject.transform.localPosition.z < -0.5) 
+            Computer.gameObject.transform.localPosition -= new Vector3(0,0, 0.5f);
+        else if(hit.collider.Equals(Computer.ComputerCollider && Computer.gameObject.transform.localPosition.z > -0.11))
+            Computer.gameObject.transform.localPosition += new Vector3(0,0, 0.5f);
     }
 }
