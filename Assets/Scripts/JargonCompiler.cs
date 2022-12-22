@@ -9,8 +9,8 @@ using MoonSharp.Interpreter.Loaders;
 public class JargonCompiler : MonoBehaviour
 {
     [HideInInspector] public string FileData;
-
-    Script script = new Script();
+    [HideInInspector] public Script script = new Script();
+    
     public ScriptFunctionDelegate onAwake, onInitialize, onStart;
 
 /*****************************************************/

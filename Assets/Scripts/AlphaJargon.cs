@@ -9,6 +9,17 @@ public class AlphaJargon : JargonEngine
     void Awake()
     {
         Compiler = gameObject.AddComponent<JargonCompiler>();
+
+        // https://www.moonsharp.org/scriptloaders.html
+        ((MoonSharp.Interpreter.Loaders.ScriptLoaderBase)
+        MoonSharp.Interpreter.Script.DefaultOptions.ScriptLoader).ModulePaths = 
+        new string[]
+        {
+            "MyPath/?",
+            "MyPath/?.lua"
+        };
+
+        // only run this for "require"
         Compiler.Init(game);
     }
     public override void AwakeGame()
