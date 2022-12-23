@@ -14,7 +14,7 @@ namespace float_oat.Desktop90
         private Canvas Canvas;
         private RectTransform MenuRectTransform;
 
-        void Start()
+        void Awake()
         {
             Canvas = GetComponent<Canvas>();
             if (Canvas == null)
@@ -31,6 +31,11 @@ namespace float_oat.Desktop90
             {
                 Debug.LogException(new MissingReferenceException("ActionMenuController needs a reference to the action menu button"), this);
             }
+        }
+        
+        void Start()
+        {
+            Hide();
         }
 
         void Update()

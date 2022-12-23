@@ -7,7 +7,7 @@ using UnityEngine;
 namespace BuildingBlocks.DataTypes {
 
     /// <summary>Same usage as generic dictionary. But will create serialized fields in the inspector for this dictionary.<br> Will synchronize dictionary and inspector during play mode for inspection. No manual adding in editor during play mode.</br></summary>
-    [Serializable]
+    [Serializable, MoonSharp.Interpreter.MoonSharpUserData]
     public class InspectableDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IEnumerable {
 
         //---

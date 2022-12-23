@@ -12,10 +12,6 @@ namespace SeralizedJSONSystem{
         }
 
         internal static void LoadFromResources(string filename, out T instance){
-            Debug.Log($"Loading from Resources at\n{filename}");
-            // theres a really stupid bug where if the texticon is 
-            // of a different type than the default
-            // it will be null
             instance = (T)Resources.Load(filename);
             instance.hideFlags = HideFlags.HideAndDontSave;
         }
@@ -27,18 +23,13 @@ namespace SeralizedJSONSystem{
         public static void LoadScriptableObject(string filename, out T _instance)
         {
             string jsonPath = System.IO.Path.Combine(Application.persistentDataPath,UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,$"{filename}.json");
-            
-            //FIXME: Using split("something") all over the place will blow up in my face
-            if(filename.Contains("."))
-                filename = filename.Split(".")[0];
             string resourcesPath = "Computer/Icon/" + filename;
 
             T instance = ScriptableObject.CreateInstance<T>();
             if (System.IO.File.Exists(jsonPath))
-                {
-                    Debug.Log("Loading from " + jsonPath);
-                    LoadFromJSON(jsonPath, out _instance);
-                }
+            {
+                LoadFromJSON(jsonPath, out _instance);
+            }
             else
             {
                 try
@@ -56,20 +47,7 @@ namespace SeralizedJSONSystem{
         
         public static void SaveScriptableObject(T scriptableObject, string filename) {
             string jsonPath = System.IO.Path.Combine(Application.persistentDataPath,UnityEngine.SceneManagement.SceneManager.GetActiveScene().name,$"{filename}.json");
-            
-            Debug.Log($"Saving at {jsonPath}");
             SaveToJSON(scriptableObject, jsonPath);
-
-            // Bad solution.
-
-            // if(filename.Contains("."))
-            //     filename = filename.Split(".")[0];
-            // string resourcesPath = "Computer/Icon/" + filename;
-            // AssetDatabase.CreateAsset ((T)obj, resourcesPath);
-
-            // EditorUtility.SetDirty(scriptableObject);
-            // AssetDatabase.SaveAssets();
-            // AssetDatabase.Refresh();
         }
     }
 }

@@ -24,4 +24,9 @@ public class PlayerOptions : MonoBehaviour
             Destroy(this);
         Instance = Instance ?? this;
     }
+
+    void OnEnable()
+    {
+        // Create all internal lua modules 
+    }
 }
