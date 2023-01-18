@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 1841645857153566888}
   - component: {fileID: 8346313643706612821}
   - component: {fileID: 5486081889390194021}
+  - component: {fileID: 6614798154821061840}
   m_Layer: 0
   m_Name: RightClickMenu
   m_TagString: Untagged
@@ -204,3 +205,16 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6614798154821061840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6506944670447905955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f79bb86b46bbff7409960119581a3822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Menu: {fileID: 5952915340659092130}

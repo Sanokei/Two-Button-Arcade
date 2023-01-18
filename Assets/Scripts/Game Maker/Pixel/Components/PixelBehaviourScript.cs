@@ -63,7 +63,8 @@ namespace PixelGame
 
         public void add(string FileData)
         {
-            this.FileData = FileData;
+            FileData = System.Text.RegularExpressions.Regex.Replace(FileData, @"\t", "");
+            this.FileData = FileData.Replace("[[", "").Replace("]]", "");
         }
         public void addPixelGameObjectToScriptGlobals(string key, IPixelObject value)
         {

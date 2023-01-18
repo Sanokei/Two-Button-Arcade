@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEditor;
+using System.IO;
+using System.Linq;
 
 namespace SeralizedJSONSystem{
     public static class SeralizedJSON<T> where T : ScriptableObject
@@ -15,7 +17,26 @@ namespace SeralizedJSONSystem{
             instance = (T)Resources.Load(filename);
             instance.hideFlags = HideFlags.HideAndDontSave;
         }
+        public static string RemoveFileFromDirectory(string directory) {
+            // Split the directory into its parts
+            string[] parts = directory.Split(Path.DirectorySeparatorChar);
+
+            // Check if the last part of the directory is a file
+            if (Path.HasExtension(parts[parts.Length - 1])) {
+                // If it is a file, remove it from the list of parts
+                parts = parts.Take(parts.Length - 1).ToArray();
+            }
+
+            // Join the parts back together and return the result
+            return string.Join(Path.DirectorySeparatorChar.ToString(), parts);
+        }
+
         internal static void SaveToJSON(T obj, string path) {
+            if (!Directory.Exists(RemoveFileFromDirectory(path))) 
+            {
+                // Create the directory if it does not exist
+                Directory.CreateDirectory(RemoveFileFromDirectory(path));
+            }
             System.IO.File.WriteAllText(path, JsonUtility.ToJson(obj, true));
         }
 

@@ -51,8 +51,15 @@ public class JargonCompiler : MonoBehaviour
         ((ScriptLoaderBase)script.Options.ScriptLoader).IgnoreLuaPathGlobal = true;
         ((ScriptLoaderBase)script.Options.ScriptLoader).ModulePaths = ScriptLoaderBase.UnpackStringPaths(System.IO.Path.Combine(Application.persistentDataPath,"/modules/","?") + ".lua");
 
-        DynValue fn = script.LoadString(FileData);
-        fn.Function.Call();
+        try
+        {
+            DynValue fn = script.LoadString(FileData);
+            fn.Function.Call();
+        }
+        catch (ScriptRuntimeException e)
+        {
+            Debug.LogError(e.DecoratedMessage);
+        }
 
         onAwake = script.Globals.Get("AwakeGame") != DynValue.Nil ? script.Globals.Get("AwakeGame").Function.GetDelegate() : null;
         onInitialize = script.Globals.Get("InitializeGame") != DynValue.Nil ? script.Globals.Get("InitializeGame").Function.GetDelegate() : null;
