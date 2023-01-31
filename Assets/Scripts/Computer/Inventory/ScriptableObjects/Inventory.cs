@@ -19,6 +19,14 @@ public class Inventory : ScriptableObject
         }
     }
 
+    public int Count{
+        get
+        {
+            return inventory.Length;
+        }
+        private set{}
+    }
+
     /// <summary>
     /// Loads the inventory to a json file.
     /// </summary>
@@ -82,10 +90,5 @@ public class Inventory : ScriptableObject
         }
         // Was not a free slot.
         return -1;
-    }
-
-    public int GetLength()
-    {
-        return inventory.Length;
     }
 }
